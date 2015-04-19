@@ -56,7 +56,7 @@ def int_choice(text, options, complaint):
             
     choicein = raw_input(text + "\n")
 
-    #while counter below 5 and while 'choicein' isn't in accepted range of numbers:
+    #while counter below 5 and while 'choicein' isn't in accepted range of numbers (and is an int):
     while (counter <= 4 and is_int(choicein) not in range(1, len(options))):
         if counter == 1:
             print complaint
@@ -64,7 +64,7 @@ def int_choice(text, options, complaint):
         #print counter #print attempts
         choicein = (raw_input(text + "\n"))
 
-    #if 'choicein' IS in accepted range of numbers:
+    #if 'choicein' IS in accepted range of numbers (and is an int):
     if is_int(choicein) in range(1, len(options)):
         return int(choicein) #return the input of 'choicein' and convert to int.
         
@@ -89,14 +89,16 @@ jobs = ["bum","mage", "rogue", "warrior"]
 job = str_choice("What's your job? ", jobs, "That's not a job"
                        "! These are jobs: \n")
 
-print ("\n'Hello %s! You're the most shabby-looking %s I've run into, ever." % (name, job)
+print ("\n 'Hello %s! You're the most shabby-looking %s I've run into, ever." % (name, job)
        + " What are you doing in my cave? You could have at least started"
        + " the fire for me!'\n"
-       + " You wake up with a jolt, and you feel a gentle warmth in your"
-       + " cheeks as you sit up. The rabbit sitting on the rock you not-so-humbly sat"
-       + " on the previous night seemed to fit its shape closely. The"
-       + " big, floppy ears dangle near the floor, and the larger-than-"
-       + "average rabbit-like creature sends shivers down your back.\n")
+       + " You wake up with a jolt, and you feel a gentle warmth on your"
+       + " cheeks as you sit up. You quickly scan your surroundings,"
+       + " your eyes fixate on a rabbit-like creature sitting on a"
+       + " comfortable rock. Having only seen regular rabbits and hares,"
+       + " you shiver at the sight of its big, floppy ears, dangling"
+       + " near the floor, and the dog-sized, fluffy, and suspiciously"
+       + " cute animal sends shivers down your back.\n")
 
 
 rabbitcave = ["Game Over",
@@ -113,18 +115,33 @@ rabbitcaveopt = int_choice("What do you do? ", rabbitcave, "Come on, you gotta p
 ''''''''''''''''''''''''''''''''''''''''''''''''
 
 
-rabbitcaveend = ["\n Aww, you lost. There's a very simple reason for that." +
-                 " You have to actually choose to do something," +
-                 " otherwise you will starve or thirst to death!" +
-                 " ...unless, of course, some other cause of death" +
-                 " reaches you first... which is what actually happened." +
-                 "\nPlease, please, applaud not, for I am without both" +
-                 " pen and paper, and I may therefore not scribble my name." +
-                 "\n\nSo there, you may go now. This game is over. Shoo, shoo!",
-                 "",
-                 "test2",
-                 "test3",
-                 "test4"]
+rabbitcaveend = ["\n Aww, you lost. There's a very simple reason for that."
+                 + " You have to actually choose to do something,"
+                 + " otherwise you will starve or thirst to death!"
+                 + " ...unless, of course, some other cause of death"
+                 + " reaches you first... which is what actually happened."
+                 + " Please, please, applaud not, for I am without both"
+                 + " pen and paper, and I may therefore not scribble my name."
+                 + "\n So there, you may go now. This game is over. Shoo, shoo!",
+                 
+                 "\n You jump out of your sheets, and quickly take a step towards"
+                 + " the rabbit. Your arm, from its pulled-back position, fires"
+                 + " towards the rabbit at speeds you didn't think your arms could."
+                 + " The fire next to you started to crackle violently from the"
+                 + " vibrations now emanating from your stomping feet, nearly like"
+                 + " a cheering crowd. You notice time seemingly slow down from the"
+                 + " abrupt wake-up, and only inches from the rabbits face, when"
+                 + " Benny the bouncy bunny springs from his throne, stabs you with"
+                 + " its fluffy behind. You barely catch a glimpse of a red barb"
+                 + " and a few trailing drops as it leaves your forearm, before"
+                 + " you realize that the rabbit is behind you.",
+                 
+                 "\n "
+                 + "test3",
+                 
+                 "test4",
+
+                 "test5"]
 
 print rabbitcaveend[rabbitcaveopt]
 
