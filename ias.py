@@ -90,13 +90,18 @@ job = str_choice("What's your job? ", jobs, "That's not a job"
                        "! These are jobs: \n")
 
 print ("\n 'Hello %s! You're the most shabby-looking %s I've run into, ever." % (name, job)
-       + " What are you doing in my cave? You could have at least started"
+       + " What are you doing in my cave? You could've at least started"
        + " the fire for me!'\n"
        + " You wake up with a jolt, and you feel a gentle warmth on your"
-       + " cheeks as you sit up. You quickly scan your surroundings,"
-       + " your eyes fixate on a rabbit-like creature sitting on a"
-       + " comfortable rock. Having only seen regular rabbits and hares,"
-       + " you shiver at the sight of its big, floppy ears, dangling"
+       + " cheeks as you sit up. You quickly scan your surroundings."
+       + " The cave is small, no bigger than a shed. Along the inner"
+       + " wall there's a makeshift table and a rock to sit on. Only"
+       + " a couple feet away there's an unlit torch stuck in some dirt in"
+       + " the ground. Next to that, there's a backpack with some leaves"
+       + " and shears. Your eyes fixate on a huge, upright rabbit sitting on"
+       + " a comfortable rock chair, if you can call it that. Having only"
+       + " seen regular rabbits and hares before, you're startled."
+       + " You shiver at the sight of its big, floppy ears, dangling"
        + " near the floor, and the dog-sized, fluffy, and suspiciously"
        + " cute animal sends shivers down your back.\n")
 
@@ -136,12 +141,14 @@ rabbitcaveend = ["\n Aww, you lost. There's a very simple reason for that."
                  + " and a few trailing drops as it leaves your forearm, before"
                  + " you realize that the rabbit is behind you.",
                  
-                 "\n "
-                 + "test3",
+                 "\n You take a look around you as you cautiously rise from your"
+                 + " sleeping gear. The entrance of the cave seems to be small"
+                 + "enough that you'd have to be on all fours to get through."
+                 + " ",
                  
-                 "test4",
+                 "test3",
 
-                 "test5"]
+                 "test4"]
 
 print rabbitcaveend[rabbitcaveopt]
 
