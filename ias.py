@@ -143,8 +143,13 @@ rabbitcaveend = ["\n Aww, you lost. There's a very simple reason for that."
                  
                  "\n You take a look around you as you cautiously rise from your"
                  + " sleeping gear. The entrance of the cave seems to be small"
-                 + "enough that you'd have to be on all fours to get through."
-                 + " ",
+                 + " enough that you'd have to be on all fours to get through."
+                 + " The ceiling is only about two feet taller than you. The"
+                 + " table has a knife on it and some chopped up herbs. The"
+                 + " backpack has some herbs that you recognize, and some you"
+                 + " don't, but from what you gather, it looks like dinner."
+                 + " The rabbit, now poking the seemingly newly lit fire with"
+                 + " a stick, takes quick glances at you",
                  
                  "test3",
 
