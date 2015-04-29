@@ -91,10 +91,10 @@ job = str_choice("What's your job? ", jobs, "That's not a job"
 
 print ("\n 'Hello %s! You're the most shabby-looking %s I've run into, ever." % (name, job)
        + " What are you doing in my cave? You could've at least started"
-       + " the fire for me!'\n"
+       + " the fire for me while I was gone, sleepyhead!'\n"
        + " You wake up with a jolt, and you feel a gentle warmth on your"
        + " cheeks as you sit up. You quickly scan your surroundings."
-       + " The cave is small, no bigger than a shed. Along the inner"
+       + " The cave is small, no bigger than a decent shed. Along the inner"
        + " wall there's a makeshift table and a rock to sit on. Only"
        + " a couple feet away there's an unlit torch stuck in some dirt in"
        + " the ground. Next to that, there's a backpack with some leaves"
@@ -149,11 +149,21 @@ rabbitcaveend = ["\n Aww, you lost. There's a very simple reason for that."
                  + " backpack has some herbs that you recognize, and some you"
                  + " don't, but from what you gather, it looks like dinner."
                  + " The rabbit, now poking the seemingly newly lit fire with"
-                 + " a stick, takes quick glances at you",
+                 + " a stick, takes quick glances at you.",
                  
-                 "test3",
+                 "Wooow, last night must have been the wildest party! The drinks"
+                 + " are still lingering! That must have been some potent stuff"
+                 + ", never thought I'd see a talking rabbit. So what part of"
+                 + " my subconscious are you? Angela the angel or Dean the devil?",
 
-                 "test4"]
+                 "You make a split-second decision to run at the sight of"
+                 + " mr. furryneck. You reach for your backpack, but you"
+                 + " only grab at the air a few times. You jump up and sprint"
+                 + " for the only exit, but you realize just a moment too late"
+                 + " that it's far too tight to get out upright, so in a heroic"
+                 + " attempt to dodge a headbang, you dive. You get down on"
+                 + " all fours and tumble into the upper edge. Your head hurts"
+                 + " for just a blink, before you black out."]
 
 print rabbitcaveend[rabbitcaveopt]
 
