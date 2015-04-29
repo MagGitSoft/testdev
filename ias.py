@@ -151,12 +151,12 @@ rabbitcaveend = ["\n Aww, you lost. There's a very simple reason for that."
                  + " The rabbit, now poking the seemingly newly lit fire with"
                  + " a stick, takes quick glances at you.",
                  
-                 "Wooow, last night must have been the wildest party! The drinks"
+                 "\n Wooow, last night must have been the wildest party! The drinks"
                  + " are still lingering! That must have been some potent stuff"
                  + ", never thought I'd see a talking rabbit. So what part of"
                  + " my subconscious are you? Angela the angel or Dean the devil?",
 
-                 "You make a split-second decision to run at the sight of"
+                 "\n You make a split-second decision to run at the sight of"
                  + " mr. furryneck. You reach for your backpack, but you"
                  + " only grab at the air a few times. You jump up and sprint"
                  + " for the only exit, but you realize just a moment too late"
