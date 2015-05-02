@@ -4,25 +4,47 @@
 ###''''''''''''''''''''''''''''''''''''''''''###
 ###~~~Definitionary~~~~~~~~~~~~~~~~~~~~~~~~~~###
 ###''''''''''''''''''''''''''''''''''''''''''###
-
-
+''''''''''''''''''''''''
+def dice(sides):
+    if sides == 4:
+        return random.randint(1, 4)
+    if sides == 6:
+        return random.randint(1, 6)
+    else:
+        return False
+        
+''''''''''''''''''''''''
+def monster(species, name):
+    name = name
+    species = species
+    hp = 100
+    atk = 1 * dice(4)
+    init = random.randint(1, 20)
+''''''''''''''''''''''''
+def player(name, job):
+    name = name
+    job = job
+    hp = 100
+    atk = 1 * dice(6)
+    init = random.randint(1, 20)
+    
 ''''''''''''''''''''''''
 # str_choice accepts any string input that matches with 'options'-list in argument
 def str_choice(text, options, complaint): #choice function with three arguments:
                                           #(text, options, complaint)
     counter = 1
     #print counter
-    choicein = raw_input(text + "\n")
+    choicein = input(text + "\n")
     choicein = choicein.lower() #converts 'choicein'-input to lowercase
 
     #while counter below 5 and 'choicein' string is not found in 'options'-list
     while (counter <= 4 and choicein not in options):
         if counter == 1:
-            print complaint + ", ".join(options) #syntax for joining list entries in string.
+            print (complaint + ", ".join(options)) #syntax for joining list entries in string.
             #print "\n"
         counter += 1 #same as (counter = counter + 1)
         #print counter #print attempts
-        choicein = raw_input(text + "\n")
+        choicein = input(text + "\n")
         choicein = choicein.lower()
 
     if choicein in options:
@@ -50,19 +72,19 @@ def int_choice(text, options, complaint):
     #print counter
     
     for i in range(1, len(options)): #for integer 'i' from 1 to length of 'options'-list
-        print i, options[i]          #print i, then value 'i' from 'options'-list
+        print (i, options[i])          #print i, then value 'i' from 'options'-list
                                      #SO: Basically prints list 'options' with index number
                                      #from entry 1 (not first entry [0]) to end of list.
             
-    choicein = raw_input(text + "\n")
+    choicein = input(text + "\n")
 
     #while counter below 5 and while 'choicein' isn't in accepted range of numbers (and is an int):
     while (counter <= 4 and is_int(choicein) not in range(1, len(options))):
         if counter == 1:
-            print complaint
+            print (complaint)
         counter += 1
         #print counter #print attempts
-        choicein = (raw_input(text + "\n"))
+        choicein = (input(text + "\n"))
 
     #if 'choicein' IS in accepted range of numbers (and is an int):
     if is_int(choicein) in range(1, len(options)):
@@ -79,7 +101,7 @@ def int_choice(text, options, complaint):
 ###~~~Script Start~~~~~~~~~~~~~~~~~~~~~~~~~~~###
 ###''''''''''''''''''''''''''''''''''''''''''###
 
-name = raw_input("What's your name?\n")
+name = input("What's your name?\n")
 name = name.capitalize()
 
 # Define a list of jobs
@@ -88,6 +110,8 @@ jobs = ["bum","mage", "rogue", "warrior"]
 #job = output of str_choice, which gives a string
 job = str_choice("What's your job? ", jobs, "That's not a job"
                        "! These are jobs: \n")
+
+player(name, job)
 
 print ("\n 'Hello %s! You're the most shabby-looking %s I've run into, ever." % (name, job)
        + " What are you doing in my cave? You could've at least started"
@@ -110,7 +134,8 @@ rabbitcave = ["Game Over",
               "punch the rabbit in the face",
               "take a deep breath, consider surroundings",
               "explain your sorry state",
-              "grab your backpack and sprint out of the cave"]
+              "grab your backpack and sprint out of the cave",
+              "go outside"]
 
 #rabbitcaveopt = output of int_choice, which gives an int
 rabbitcaveopt = int_choice("What do you do? ", rabbitcave, "Come on, you gotta pick a number!")
@@ -128,7 +153,7 @@ rabbitcaveend = ["\n Aww, you lost. There's a very simple reason for that."
                  + " Please, please, applaud not, for I am without both"
                  + " pen and paper, and I may therefore not scribble my name."
                  + "\n So there, you may go now. This game is over. Shoo, shoo!",
-                 
+                 #Option 1
                  "\n You jump out of your sheets, and quickly take a step towards"
                  + " the rabbit. Your arm, from its pulled-back position, fires"
                  + " towards the rabbit at speeds you didn't think your arms could."
@@ -140,7 +165,7 @@ rabbitcaveend = ["\n Aww, you lost. There's a very simple reason for that."
                  + " its fluffy behind. You barely catch a glimpse of a red barb"
                  + " and a few trailing drops as it leaves your forearm, before"
                  + " you realize that the rabbit is behind you.",
-                 
+                 #Option 2
                  "\n You take a look around you as you cautiously rise from your"
                  + " sleeping gear. The entrance of the cave seems to be small"
                  + " enough that you'd have to be on all fours to get through."
@@ -150,12 +175,12 @@ rabbitcaveend = ["\n Aww, you lost. There's a very simple reason for that."
                  + " don't, but from what you gather, it looks like dinner."
                  + " The rabbit, now poking the seemingly newly lit fire with"
                  + " a stick, takes quick glances at you.",
-                 
+                 #Option 3
                  "\n Wooow, last night must have been the wildest party! The drinks"
                  + " are still lingering! That must have been some potent stuff"
                  + ", never thought I'd see a talking rabbit. So what part of"
                  + " my subconscious are you? Angela the angel or Dean the devil?",
-
+                 #Option 4
                  "\n You make a split-second decision to run at the sight of"
                  + " mr. furryneck. You reach for your backpack, but you"
                  + " only grab at the air a few times. You jump up and sprint"
@@ -163,7 +188,14 @@ rabbitcaveend = ["\n Aww, you lost. There's a very simple reason for that."
                  + " that it's far too tight to get out upright, so in a heroic"
                  + " attempt to dodge a headbang, you dive. You get down on"
                  + " all fours and tumble into the upper edge. Your head hurts"
-                 + " for just a blink, before you black out."]
+                 + " for just a blink, before you black out.",
+                 #Option 5
+                 "You go outside."]
 
-print rabbitcaveend[rabbitcaveopt]
+print (rabbitcaveend[rabbitcaveopt])
+
+if rabbitcaveopt == 5:
+    print ("You step outside to find a similar rabbit to the one inside. Only"
+           + " this one looks angrier. It jumps towards you and you slide aside"
+           + " to dodge it. You've been attacked, oh my!")
 
