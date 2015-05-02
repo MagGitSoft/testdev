@@ -21,7 +21,7 @@ def monster(species, name):
     atk = 1 * dice(4)
     init = random.randint(1, 20)
 ''''''''''''''''''''''''
-def player(name, job):
+def playerstats(name, job):
     name = name
     job = job
     hp = 100
@@ -72,8 +72,8 @@ def int_choice(text, options, complaint):
     #print counter
     
     for i in range(1, len(options)): #for integer 'i' from 1 to length of 'options'-list
-        print (i, options[i])          #print i, then value 'i' from 'options'-list
-                                     #SO: Basically prints list 'options' with index number
+        print (i, options[i])        #print i, then value 'i' from 'options'-list
+                                     #So: Basically prints list 'options' with index number
                                      #from entry 1 (not first entry [0]) to end of list.
             
     choicein = input(text + "\n")
@@ -199,3 +199,4 @@ if rabbitcaveopt == 5:
            + " this one looks angrier. It jumps towards you and you slide aside"
            + " to dodge it. You've been attacked, oh my!")
 
+rabbit = monster("barbit", "Barbit")
