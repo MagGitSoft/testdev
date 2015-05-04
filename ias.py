@@ -1,11 +1,11 @@
 # -*- coding: cp1252 -*-
-
+import random
 
 ###''''''''''''''''''''''''''''''''''''''''''###
 ###~~~Definitionary~~~~~~~~~~~~~~~~~~~~~~~~~~###
 ###''''''''''''''''''''''''''''''''''''''''''###
 ''''''''''''''''''''''''
-def dice(sides):
+def dice(sides, throws):
     if sides == 4:
         return random.randint(1, 4)
     if sides == 6:
@@ -18,14 +18,14 @@ def monster(species, name):
     name = name
     species = species
     hp = 100
-    atk = 1 * dice(4)
+    atk = dice(4, 1)
     init = random.randint(1, 20)
 ''''''''''''''''''''''''
 def playerstats(name, job):
     name = name
     job = job
     hp = 100
-    atk = 1 * dice(6)
+    atk = dice(6, 1)
     init = random.randint(1, 20)
     
 ''''''''''''''''''''''''
@@ -111,7 +111,8 @@ jobs = ["bum","mage", "rogue", "warrior"]
 job = str_choice("What's your job? ", jobs, "That's not a job"
                        "! These are jobs: \n")
 
-player(name, job)
+player = playerstats(name, job)
+print (player)
 
 print ("\n 'Hello %s! You're the most shabby-looking %s I've run into, ever." % (name, job)
        + " What are you doing in my cave? You could've at least started"
