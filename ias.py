@@ -1,15 +1,22 @@
 # -*- coding: cp1252 -*-
 import random
+import tables
+import numpy
 
 ###''''''''''''''''''''''''''''''''''''''''''###
 ###~~~Definitionary~~~~~~~~~~~~~~~~~~~~~~~~~~###
 ###''''''''''''''''''''''''''''''''''''''''''###
 ''''''''''''''''''''''''
+def combat(player, opponent):
+    while player.hp or opponenthp <= 0:
+        
+
+''''''''''''''''''''''''
 def dice(sides, throws):
     if sides == 4:
-        return random.randint(1, 4)
+        return random.randint(0, 4)
     if sides == 6:
-        return random.randint(1, 6)
+        return random.randint(0, 6)
     else:
         return False
         
