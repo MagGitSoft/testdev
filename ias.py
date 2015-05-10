@@ -1,24 +1,29 @@
 # -*- coding: cp1252 -*-
 import random
 import tables
-import numpy
 
 ###''''''''''''''''''''''''''''''''''''''''''###
 ###~~~Definitionary~~~~~~~~~~~~~~~~~~~~~~~~~~###
 ###''''''''''''''''''''''''''''''''''''''''''###
 ''''''''''''''''''''''''
+'''
 def combat(player, opponent):
     while player.hp or opponenthp <= 0:
         
 
+'''
 ''''''''''''''''''''''''
 def dice(sides, throws):
-    if sides == 4:
-        return random.randint(0, 4)
-    if sides == 6:
-        return random.randint(0, 6)
+    rolls = [0] * 7
+    for i in range(throws):
+        if sides == 4:
+            roll = random.randint(1, 4)
+            if roll == 1:
+                
+        if sides == 6:
+            return random.randint(1, 6) 
     else:
-        return False
+        return 0
         
 ''''''''''''''''''''''''
 def monster(species, name):
@@ -121,9 +126,9 @@ job = str_choice("What's your job? ", jobs, "That's not a job"
 player = playerstats(name, job)
 print (player)
 
-print ("\n 'Hello %s! You're the most shabby-looking %s I've run into, ever." % (name, job)
-       + " What are you doing in my cave? You could've at least started"
-       + " the fire for me while I was gone, sleepyhead!'\n"
+print ("\n 'Hello %s! You're the most shabby-looking %s I've" % (name, job)
+       + " run into, ever. What are you doing in my cave? You could've at"
+       + " least started the fire for me while I was gone, sleepyhead!'\n"
        + " You wake up with a jolt, and you feel a gentle warmth on your"
        + " cheeks as you sit up. You quickly scan your surroundings."
        + " The cave is small, no bigger than a decent shed. Along the inner"
@@ -146,7 +151,9 @@ rabbitcave = ["Game Over",
               "go outside"]
 
 #rabbitcaveopt = output of int_choice, which gives an int
-rabbitcaveopt = int_choice("What do you do? ", rabbitcave, "Come on, you gotta pick a number!")
+rabbitcaveopt = int_choice("What do you do? ",
+                           rabbitcave,
+                           "Come on, you gotta pick a number!")
 
 
 
@@ -204,7 +211,7 @@ print (rabbitcaveend[rabbitcaveopt])
 
 if rabbitcaveopt == 5:
     print ("You step outside to find a similar rabbit to the one inside. Only"
-           + " this one looks angrier. It jumps towards you and you slide aside"
-           + " to dodge it. You've been attacked, oh my!")
+           + " this one looks angrier. It jumps towards you and you slide"
+           + " aside to dodge it. You've been attacked, oh my!")
 
 rabbit = monster("barbit", "Barbit")
