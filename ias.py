@@ -1,30 +1,82 @@
 # -*- coding: cp1252 -*-
 import random
-import tables
+from tables import *
+import numpy
 
 ###''''''''''''''''''''''''''''''''''''''''''###
 ###~~~Definitionary~~~~~~~~~~~~~~~~~~~~~~~~~~###
 ###''''''''''''''''''''''''''''''''''''''''''###
 ''''''''''''''''''''''''
-'''
-def combat(player, opponent):
-    while player.hp or opponenthp <= 0:
-        
 
-'''
+class StatsTable(IsDescription):
+    #columns
+    '''
+    name      = StringCol(16)   # 16-character String
+    idnumber  = Int64Col()      # Signed 64-bit integer
+    ADCcount  = UInt16Col()     # Unsigned short integer
+    TDCcount  = UInt8Col()      # unsigned byte
+    grid_i    = Int32Col()      # 32-bit integer
+    grid_j    = Int32Col()      # 32-bit integer
+    pressure  = Float32Col()    # float  (single-precision)
+    energy    = Float64Col()    # double (double-precision)'''
+
+    idnumber = Int64Col()       #Signed 64-bit integer
+    name = StringCol(16)        #16 character string
+    surname = StringCol(16)     #--||--
+    hpbase = Int32Col()         #32-bit integer
+    manabase = Int32Col()       #--||--
+
 ''''''''''''''''''''''''
 def dice(sides, throws):
-    rolls = [0] * 7
+    rolls = [0] * 7 #rolls = list with 
     for i in range(throws):
-        if sides == 4:
-            roll = random.randint(1, 4)
-            if roll == 1:
-                
-        if sides == 6:
-            return random.randint(1, 6) 
-    else:
-        return 0
         
+        #4-sided die
+        if sides == 4:
+            roll = random.randint(1, 4)#random int between (x, y)
+            #checks what int is output and adds 1 to corresponding index
+            if roll == 1:
+                rolls[1] += 1
+            if roll == 2:
+                rolls[2] += 1
+            if roll == 3:
+                rolls[3] += 1
+            if roll == 4:
+                rolls[4] += 1
+                
+        #6-sided die
+        if sides == 6:
+            roll = random.randint(1, 6)
+            if roll == 1:
+                rolls[1] += 1
+            if roll == 2:
+                rolls[2] += 1
+            if roll == 3:
+                rolls[3] += 1
+            if roll == 4:
+                rolls[4] += 1
+            if roll == 5:
+                rolls[5] += 1
+            if roll == 6:
+                rolls[6] += 1
+    
+    
+    roll_result = []
+    #loop over chosen elements (here, entire rolls list)
+    for i in range(1,len(rolls)):
+        #for hvert tall mellom 0 og frekvens på indeks i
+        for n in range(0, rolls[i]):
+            #legg til frekvens antall i'er (terningkast på gjeldende indeks)
+            #i listen roll_result
+            roll_result.append(i)
+    #Loops over all frequencies of throws,
+    #then adds 'i' frequency number of
+    #times into roll_result
+    return rolls, roll_result
+    
+''''''''''''''''''''''''
+#def diceval(rolls):
+    
 ''''''''''''''''''''''''
 def monster(species, name):
     name = name
