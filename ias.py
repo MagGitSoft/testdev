@@ -117,13 +117,14 @@ class Player:
 ''''''''''''''''''''''''
 def combat(player, monster):
     turn = 1  
-    while 1 == 1:
+    while dice(20, 1)[1][0] + player.initiative == \
+    dice(20, 1)[1][0] + monster.initiative:
         if dice(20, 1)[1][0] + monster.initiative \
         > dice(20, 1)[1][0] +player.initiative:
             print ("%s goes first!" % (monster.name))
             player.hp -= monster.damage
             print ("%s does ")
-            break
+            
         elif dice(20, 1)[1][0] + player.initiative \
         > dice(20, 1)[1][0] + monster.initiative:
             print ("You go first!")
