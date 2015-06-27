@@ -116,19 +116,42 @@ class Player:
 
 ''''''''''''''''''''''''
 def combat(player, monster):
-    turn = 1  
-    while dice(20, 1)[1][0] + player.initiative == \
-    dice(20, 1)[1][0] + monster.initiative:
-        if dice(20, 1)[1][0] + monster.initiative \
-        > dice(20, 1)[1][0] +player.initiative:
+    turn = 0
+    turn += 1
+    
+    count = 1
+    while count == 1:
+        #playerini = random.randint(1, 3)
+        #monsterini = 1
+        playerini = dice(20, 1)[1][0] + player.initiative
+        monsterini = dice(20, 1)[1][0] + monster.initiative
+        
+        if monsterini > playerini:
             print ("%s goes first!" % (monster.name))
-            player.hp -= monster.damage
-            print ("%s does ")
-            
-        elif dice(20, 1)[1][0] + player.initiative \
-        > dice(20, 1)[1][0] + monster.initiative:
+            inidmg = monster.damage
+            player.hp -= inidmg
+            print ("%s does %s damage!" % (monster.name, str(inidmg)))
+            count += 1
+            break
+        
+        elif playerini > monsterini:
             print ("You go first!")
-            
+            count += 1
+            break
+        
+        else:
+            count = 1
+    mon_ini = monster.initiative
+    mon_ini_str = str(mon_ini)
+    plr_ini = player.initiative
+    plr_ini_str = str(plr_ini)    
+    print
+    print ("Monster initiative roll:", str(monsterini), \
+           "(", (monsterini - mon_ini), "+" \
+           , mon_ini_str, ")")
+    print ("Player initiative roll: " + str(playerini) + \
+           " (", (playerini - plr_ini), "+" \
+           , plr_ini_str, ")")
     
     while monster.undefeated() and player.alive():
         print ("\nTurn: ", turn)
@@ -154,7 +177,6 @@ def combat(player, monster):
             else:
                 print ("%s is defeated!" % monster.species)
                 break
-        turn += 1
         
         
         monsterDmg = monster.damage
