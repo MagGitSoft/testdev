@@ -5,42 +5,11 @@ from tables import *
 import numpy
 from pandas import DataFrame, read_csv
 
+
 ###''''''''''''''''''''''''''''''''''''''''''###
 ###~~~Definitionary~~~~~~~~~~~~~~~~~~~~~~~~~~###
 ###''''''''''''''''''''''''''''''''''''''''''###
-''''''''''''''''''''''''
-'''
-class StatsTable(IsDescription):
-    #tables.open_file(filename, mode='r', title='',
-    #root_uep='/', filters=None, **kwargs)
-    h5file = open_file("iastables.h5", mode = "w", title = "Test file")
-    #File.create_group(where, name, title='',
-    #filters=None, createparents=False)
-    group = h5file.create_group("/", 'mobinfo', 'Mobstats, playerstats etc.')
-    #ile.create_table(where, name, description=None, title='',
-    #filters=None, expectedrows=10000, chunkshape=None,
-    #byteorder=None, createparents=False, obj=None)
-    table = h5file.create_table()
-        
-    #columns
-    
-    name      = StringCol(16)   # 16-character String
-    idnumber  = Int64Col()      # Signed 64-bit integer
-    ADCcount  = UInt16Col()     # Unsigned short integer
-    TDCcount  = UInt8Col()      # unsigned byte
-    grid_i    = Int32Col()      # 32-bit integer
-    grid_j    = Int32Col()      # 32-bit integer
-    pressure  = Float32Col()    # float  (single-precision)
-    energy    = Float64Col()    # double (double-precision)
 
-    idnumber = Int64Col()       #Signed 64-bit integer
-    name = StringCol(16)        #16 character string
-    surname = StringCol(16)     #--||--
-    hpbase = Int32Col()         #32-bit integer
-    manabase = Int32Col()       #--||--
-    
-    h5file.close()
-    '''
 ''''''''''''''''''''''''
 def dice(sides, throws):
     rolls = [0] * 21 #rolls = list with the value 0 in 7 additions
@@ -59,6 +28,7 @@ def dice(sides, throws):
             if roll in range(1, 7):
                 rolls[roll] += 1
         
+        #20-sided die
         if sides == 20:
             roll = random.randint(1, 20)
             if roll in range(1, 21):
@@ -68,10 +38,10 @@ def dice(sides, throws):
     roll_result = []
     #loop over chosen elements (here, entire rolls list)
     for i in range(1,len(rolls)):
-        #for hvert tall mellom 0 og frekvens på indeks i
+        #for every 'i' (item) between 0 and length of 'rolls'
         for n in range(0, rolls[i]):
-            #legg til frekvens antall i'er (terningkast på gjeldende indeks)
-            #i listen roll_result
+            #add the frequency of 'i' (diceroll on the index 'i')
+            #to the list 'roll_result'
             roll_result.append(i)
     #Loops over all frequencies of throws,
     #then adds 'i' frequency number of
@@ -106,6 +76,9 @@ class Player:
         self.damage = 5
         self.job = job
         self.initiative = 1
+        self.strength = 0
+        self.dexterity = 0
+        self.intelligence = 0
     def attackDmg(self):
         return random.randint(5,20)
     def alive(self):
@@ -118,6 +91,7 @@ class Player:
 def combat(player, monster):
     turn = 0
     turn += 1
+    print() #emptyline at beginning of combat
     
     count = 1
     while count == 1:
@@ -158,7 +132,7 @@ def combat(player, monster):
         print ("Monster health:", monster.hp)
         print ("Player health: ", player.hp)
         
-        fightchoice = input("Attack, heal or run?\n")        
+        fightchoice = input("Attack, heal or run?\n") + "\n"
         if fightchoice == ("attack" or "a"):
             dmgDealt = player.attackDmg()
             monster.hp -= dmgDealt
@@ -253,6 +227,15 @@ def int_choice(text, options, complaint):
         return 0
 ''''''''''''''''''''''''
 
+###''''''''''''''''''''''''''''''''''''''''''###
+###~~~Dictionaries~~~~~~~~~~~~~~~~~~~~~~~~~~~###
+###''''''''''''''''''''''''''''''''''''''''''###
+
+attacks = {
+    "dagger": dice(4, 1),
+    "sword": dice(6, 1),
+    "forbidden magic": dice(6, 5)
+}
 
 
 
@@ -362,3 +345,5 @@ if rabbitcaveopt == 5:
            + " aside to dodge it. You've been attacked, oh my!")
 
 rabbit = Monster("Wild Barbit", "Barbit", 100, 5)
+
+combat(player, rabbit)
