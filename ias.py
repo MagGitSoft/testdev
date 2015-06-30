@@ -87,6 +87,7 @@ class Monster:
 class Player:
     def __init__(self, name, job):
         self.name = name
+        self species = 
         self.hp = 100
         self.mana = 100
         self.damage = 5
