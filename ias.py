@@ -49,9 +49,23 @@ def dice(sides, throws):
     return rolls, roll_result
     
 ''''''''''''''''''''''''
-def save(charobj):
+def save(objstats):
+    stats = [
+        str(objstats.name),
+        str(objstats.species),
+        str(objstats.job),
+        str(objstats.hp),
+        str(objstats.mana),'''
+        str(objstats.damage),
+        str(objstats.initiative),
+        str(objstats.strength),
+        str(objstats.dexterity),
+        str(objstats.intelligence)'''
+    ]
     save = open("save.txt", "r+")
-    save.write(charobj)
+    for item in stats:
+        save.write(str(item) + "\n")
+    save.close()
     
 ''''''''''''''''''''''''
 class Monster:
