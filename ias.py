@@ -49,7 +49,9 @@ def dice(sides, throws):
     return rolls, roll_result
     
 ''''''''''''''''''''''''
-#def diceval(rolls):
+def save(charobj):
+    save = open("save.txt", "r+")
+    save.write(charobj)
     
 ''''''''''''''''''''''''
 class Monster:
