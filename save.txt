@@ -1,0 +1,11 @@
+Kai
+
+mage
+100
+100
+
+        str(objstats.damage),
+        str(objstats.initiative),
+        str(objstats.strength),
+        str(objstats.dexterity),
+        str(objstats.intelligence)

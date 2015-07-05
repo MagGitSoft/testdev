@@ -1,14 +1,21 @@
 # -*- coding: cp1252 -*-
-import sys
-import random
+import os, sys, pygame, random, numpy
+from os.path import dirname, realpath, abspath
 from tables import *
-import numpy
 from pandas import DataFrame, read_csv
+from pygame.locals import * #import some useful constants
+
+
+
 
 
 ###''''''''''''''''''''''''''''''''''''''''''###
 ###~~~Definitionary~~~~~~~~~~~~~~~~~~~~~~~~~~###
 ###''''''''''''''''''''''''''''''''''''''''''###
+
+def prnt_prettylst(lst): #prints list entries separated by newline, not comma
+    for i in lst:
+        print (i)
 
 ''''''''''''''''''''''''
 def dice(sides, throws):
@@ -55,17 +62,18 @@ def save(objstats):
         str(objstats.species),
         str(objstats.job),
         str(objstats.hp),
-        str(objstats.mana),'''
-        str(objstats.damage),
-        str(objstats.initiative),
-        str(objstats.strength),
-        str(objstats.dexterity),
-        str(objstats.intelligence)'''
+        str(objstats.mana),
+        #str(objstats.damage),
+        #str(objstats.initiative),
+        #str(objstats.strength),
+        #str(objstats.dexterity),
+        #str(objstats.intelligence)'''
     ]
-    save = open("save.txt", "r+")
+    savefile = open("save.txt", "r+")
     for item in stats:
-        save.write(str(item) + "\n")
-    save.close()
+        
+        savefile.write(str(item) + "\n")
+    savefile.close()
     
 ''''''''''''''''''''''''
 class Monster:
@@ -87,7 +95,7 @@ class Monster:
 class Player:
     def __init__(self, name, job):
         self.name = name
-        self species = 
+        self.species = ""
         self.hp = 100
         self.mana = 100
         self.damage = 5
@@ -364,3 +372,110 @@ if rabbitcaveopt == 5:
 rabbit = Monster("Wild Barbit", "Barbit", 100, 5)
 
 combat(player, rabbit)
+
+
+#TILE GLOSSARY
+DIRT = 0
+GRASS = 1
+WATER = 2
+SAND = 3
+ROCK = 4
+
+#     RED,GREEN,BLUE
+BLACK = (0, 0, 0)
+BROWN = (153, 76, 0)
+GREEN = (0, 255, 0)
+BLUE = (0, 0, 255)
+SANDYELLOW = (255, 255, 153)
+GRAY = (192, 192, 192)
+
+colours = {
+            "DIRT"  : BROWN,
+            "GRASS" : GREEN,
+            "WATER" : BLUE,
+            "SAND"  : SANDYELLOW,
+            "ROCK"  : GRAY
+}
+
+
+__file__ = "game_folder"  #This code is needed for CX_freeze, to avoid NameError.
+textures = {
+    "DIRT"  : pygame.image.load(os.path.join(dirname(__file__), "images", "dirt.png")),
+    "GRASS" : pygame.image.load(os.path.join(dirname(__file__), "images", "grass.png")),
+    "WATER" : pygame.image.load(os.path.join(dirname(__file__), "images", "water.png")),
+    "SAND"  : pygame.image.load(os.path.join(dirname(__file__), "images", "sand.png")),
+    "ROCK"  : pygame.image.load(os.path.join(dirname(__file__), "images", "rock.png"))
+}
+
+rows = 20
+columns = 35
+
+#useful game dimensions in pixels
+TILESIZE = 30
+MAPWIDTH = columns
+MAPHEIGHT = rows
+
+
+
+tiles = ["DIRT", "GRASS", "WATER", "SAND", "ROCK"]
+
+tilemap = [
+           [DIRT for w in range(MAPWIDTH)]
+           for h in range(MAPHEIGHT)
+          ]
+'''
+for rw in range(rows):
+    tilemap.append([]) #obsolete unless tiles = []
+    for cl in range(columns):
+        tilemap[rw].append(tiles[random.randint(0,len(tiles) - 1)])
+        # ^-- designed to work with tilemap.append([])
+'''
+for rw in range(rows):
+    for cl in range(columns):
+        randomNumber = random.randint(0,15)
+        if randomNumber == 0:
+            tile = "ROCK"
+        elif randomNumber == 1 or randomNumber == 2:
+            tile = "WATER"
+        elif randomNumber >= 3 and randomNumber <= 7:
+            tile = "GRASS"
+        else:
+            tile = "DIRT"
+        tilemap[rw][cl] = tile
+
+###''''''''''''''''''''''''''''''''''''''''''###
+###~~~In-game Window~~~~~~~~~~~~~~~~~~~~~~~~~###
+###''''''''''''''''''''''''''''''''''''''''''###
+
+#initialise the pygame module
+pygame.init()
+
+#create a new drawing surface, with columns(width) first, then rows(height)
+DISPLAYSURF = pygame.display.set_mode((MAPWIDTH*TILESIZE,MAPHEIGHT*TILESIZE))
+#give the window a caption
+pygame.display.set_caption("IAS - an interactive story")
+
+#loop forever
+while True:
+    #get all the user events
+    for event in pygame.event.get():
+        if event.type == QUIT:
+            pygame.quit()
+            sys.exit()
+            
+    #loop through each row
+    for row in range(MAPHEIGHT):
+        #loop through each column in current row
+        for column in range(MAPWIDTH):
+            DISPLAYSURF.blit(textures[tilemap[row][column]],\
+            (column*TILESIZE,row*TILESIZE))
+            
+            #The two lines below were replaced with above.
+            #pygame.draw.rect(DISPLAYSURF, colours[tilemap[row][column]],\
+            #(column*TILESIZE,row*TILESIZE,TILESIZE,TILESIZE))
+    #update the display
+    pygame.display.update()
+
+###''''''''''''''''''''''''''''''''''''''''''###
+###~~~After Window~~~~~~~~~~~~~~~~~~~~~~~~~~~###
+###''''''''''''''''''''''''''''''''''''''''''###
