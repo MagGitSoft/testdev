@@ -141,16 +141,14 @@ def combat(player, monster):
         else:
             count = 1
     mon_ini = monster.initiative
-    mon_ini_str = str(mon_ini)
-    plr_ini = player.initiative
-    plr_ini_str = str(plr_ini)    
+    plr_ini = player.initiative 
     print
     print ("Monster initiative roll:", str(monsterini), \
-           "(", (monsterini - mon_ini), "+" \
-           , mon_ini_str, ")")
+           ("(%s+%s)" %((monsterini - mon_ini), mon_ini)))
+           #"(", (monsterini - mon_ini), "+" \
+           #, mon_ini_str, ")")
     print ("Player initiative roll: " + str(playerini) + \
-           " (", (playerini - plr_ini), "+" \
-           , plr_ini_str, ")")
+           ("(%s+%s)" %((playerini - plr_ini), plr_ini)))
     
     while monster.undefeated() and player.alive():
         print ("\nTurn: ", turn)
@@ -389,6 +387,10 @@ BLUE = (0, 0, 255)
 SANDYELLOW = (255, 255, 153)
 GRAY = (192, 192, 192)
 
+inventory = {
+            asd
+            }
+
 colours = {
             "DIRT"  : BROWN,
             "GRASS" : GREEN,
@@ -414,8 +416,8 @@ textures = {
 
 playerPos = [0,0]
 
-rows = 20
-columns = 35
+rows = 10
+columns = 10
 
 #useful game dimensions in pixels
 TILESIZE = 30
@@ -439,7 +441,7 @@ for rw in range(rows):
 '''
 for rw in range(rows):
     for cl in range(columns):
-        randomNumber = random.randint(0,99)
+        randomNumber = random.randint(0,100)
         if randomNumber in range(0,10):
             tile = "ROCK"
         elif randomNumber in range(11,25):
@@ -471,18 +473,25 @@ while True:
         if event.type == QUIT:
             pygame.quit()
             sys.exit()
-        elif event.type == KEYDOWN\
-        and playerPos[0] < MAPWIDTH - 1\
-        and playerPos[1] < MAPHEIGHT - 1:
-            if (event.key == K_LEFT):
+        elif event.type == KEYDOWN:
+            if (event.key == K_LEFT)\
+            and playerPos[0] > 0:
                 playerPos[0] -= 1
-            if (event.key == K_RIGHT):
+            if (event.key == K_RIGHT)\
+            and playerPos[0] < (MAPWIDTH - 1):
                 playerPos[0] += 1
-            if (event.key == K_UP):
+            if (event.key == K_UP)\
+            and playerPos[1] > 0:
                 playerPos[1] -= 1
-            if (event.key == K_DOWN):
+            if (event.key == K_DOWN)\
+            and playerPos[1] < (MAPHEIGHT - 1):
                 playerPos[1] += 1
-            
+            if (event.key == K_ESCAPE):
+                pygame.quit()
+                sys.exit()
+            if (event.key == K_E):
+                print ("hi")
+                
     #loop through each row
     for row in range(MAPHEIGHT):
         #loop through each column in current row
