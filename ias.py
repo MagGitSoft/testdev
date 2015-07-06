@@ -12,6 +12,10 @@ from pygame.locals import * #import some useful constants
 ###~~~Definitionary~~~~~~~~~~~~~~~~~~~~~~~~~~###
 ###''''''''''''''''''''''''''''''''''''''''''###
 
+#def search():
+    
+
+''''''''''''''''''''''''
 def prnt_prettylst(lst): #prints list entries separated by newline, not comma
     for i in lst:
         print (i)
@@ -386,7 +390,23 @@ BLUE = (0, 0, 255)
 SANDYELLOW = (255, 255, 153)
 GRAY = (192, 192, 192)
 
+
+def search():
+    
+    if resrcmap[playerPos[0]][playerPos[1]] != 0:
+        inventory.key(curRsrc)
+        resrcmap[playerPos[0]][playerPos[1]] = 0
+
+items = {
+        "wand" : "wand",
+        "sword" : "sword",
+        "bow" : "bow",
+        "dagger" : "dagger",
+        "gold" : ["gold", random.randint(1,20)]
+        }
+
 inventory = {
+            
             }
 
 colours = {
@@ -426,10 +446,18 @@ MAPHEIGHT = rows
 
 tiles = ["DIRT", "GRASS", "WATER", "SAND", "ROCK"]
 
+resrcmap = [
+           [[] for w in range(MAPWIDTH)] for h in range(MAPHEIGHT)
+          ]
+
 tilemap = [
            [DIRT for w in range(MAPWIDTH)]
            for h in range(MAPHEIGHT)
           ]
+
+curTile = tilemap[playerPos[0]][playerPos[1]]
+curRsrc = resrcmap[playerPos[0]][playerPos[1]]
+
 '''
 for rw in range(rows):
     tilemap.append([]) #obsolete unless tiles = []
@@ -437,6 +465,23 @@ for rw in range(rows):
         tilemap[rw].append(tiles[random.randint(0,len(tiles) - 1)])
         # ^-- designed to work with tilemap.append([])
 '''
+for rw in range(rows):
+    for cl in range(columns):
+        randomNumber = random.randint(0,20)
+        if randomNumber in range(0,1):
+            resrc = items.get("wand")
+        elif randomNumber in range(2,4):
+            resrc = items.get("sword")
+        elif randomNumber in range(5,8):
+            resrc = items.get("bow")
+        elif randomNumber in range(9,13):
+            resrc = items.get("dagger")
+        elif randomNumber in range(14,15):
+            resrc = items.get("gold")
+        else:
+            resrc = 0
+        resrcmap[rw][cl] = resrc
+
 for rw in range(rows):
     for cl in range(columns):
         randomNumber = random.randint(0,100)
@@ -488,7 +533,7 @@ while True:
                 pygame.quit()
                 sys.exit()
             if (event.key == K_e):
-                print ("hi")
+                print("hi")
                 
     #loop through each row
     for row in range(MAPHEIGHT):
