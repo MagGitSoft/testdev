@@ -1,7 +1,6 @@
 # -*- coding: cp1252 -*-
 import os, sys, pygame, random, numpy
 from os.path import dirname, realpath, abspath
-from tables import *
 from pandas import DataFrame, read_csv
 from pygame.locals import * #import some useful constants
 
@@ -388,7 +387,6 @@ SANDYELLOW = (255, 255, 153)
 GRAY = (192, 192, 192)
 
 inventory = {
-            asd
             }
 
 colours = {
@@ -489,7 +487,7 @@ while True:
             if (event.key == K_ESCAPE):
                 pygame.quit()
                 sys.exit()
-            if (event.key == K_E):
+            if (event.key == K_e):
                 print ("hi")
                 
     #loop through each row
