@@ -400,12 +400,19 @@ colours = {
 
 __file__ = "game_folder"  #This code is needed for CX_freeze, to avoid NameError.
 textures = {
-    "DIRT"  : pygame.image.load(os.path.join(dirname(__file__), "images", "dirt.png")),
-    "GRASS" : pygame.image.load(os.path.join(dirname(__file__), "images", "grass.png")),
-    "WATER" : pygame.image.load(os.path.join(dirname(__file__), "images", "water.png")),
-    "SAND"  : pygame.image.load(os.path.join(dirname(__file__), "images", "sand.png")),
-    "ROCK"  : pygame.image.load(os.path.join(dirname(__file__), "images", "rock.png"))
+    "DIRT"  : pygame.image.load(os.path.join(dirname(__file__),
+                                             "images", "dirt.png")),
+    "GRASS" : pygame.image.load(os.path.join(dirname(__file__),
+                                             "images", "grass.png")),
+    "WATER" : pygame.image.load(os.path.join(dirname(__file__),
+                                             "images", "water.png")),
+    "SAND"  : pygame.image.load(os.path.join(dirname(__file__),
+                                             "images", "sand.png")),
+    "ROCK"  : pygame.image.load(os.path.join(dirname(__file__),
+                                             "images", "rock.png"))
 }
+
+playerPos = [0,0]
 
 rows = 20
 columns = 35
@@ -432,12 +439,12 @@ for rw in range(rows):
 '''
 for rw in range(rows):
     for cl in range(columns):
-        randomNumber = random.randint(0,15)
-        if randomNumber == 0:
+        randomNumber = random.randint(0,99)
+        if randomNumber in range(0,10):
             tile = "ROCK"
-        elif randomNumber == 1 or randomNumber == 2:
+        elif randomNumber in range(11,25):
             tile = "WATER"
-        elif randomNumber >= 3 and randomNumber <= 7:
+        elif randomNumber in range(26,95):
             tile = "GRASS"
         else:
             tile = "DIRT"
@@ -454,21 +461,36 @@ pygame.init()
 DISPLAYSURF = pygame.display.set_mode((MAPWIDTH*TILESIZE,MAPHEIGHT*TILESIZE))
 #give the window a caption
 pygame.display.set_caption("IAS - an interactive story")
-
+PLAYER = pygame.image.load(os.path.join(dirname(__file__),
+                                        "images", "player.png")).convert_alpha()
 #loop forever
 while True:
     #get all the user events
     for event in pygame.event.get():
+        print(event)
         if event.type == QUIT:
             pygame.quit()
             sys.exit()
+        elif event.type == KEYDOWN\
+        and playerPos[0] < MAPWIDTH - 1\
+        and playerPos[1] < MAPHEIGHT - 1:
+            if (event.key == K_LEFT):
+                playerPos[0] -= 1
+            if (event.key == K_RIGHT):
+                playerPos[0] += 1
+            if (event.key == K_UP):
+                playerPos[1] -= 1
+            if (event.key == K_DOWN):
+                playerPos[1] += 1
             
     #loop through each row
     for row in range(MAPHEIGHT):
         #loop through each column in current row
         for column in range(MAPWIDTH):
-            DISPLAYSURF.blit(textures[tilemap[row][column]],\
-            (column*TILESIZE,row*TILESIZE))
+            DISPLAYSURF.blit(textures[tilemap[row][column]],(column*TILESIZE,
+                                                             row*TILESIZE))
+            DISPLAYSURF.blit(PLAYER,(playerPos[0]*TILESIZE,
+                                     playerPos[1]*TILESIZE))
             
             #The two lines below were replaced with above.
             #pygame.draw.rect(DISPLAYSURF, colours[tilemap[row][column]],\
