@@ -116,6 +116,20 @@ class Player:
             sys.exit("Virkelig, skikkelig dævv...")
 
 ''''''''''''''''''''''''
+class Item:
+    def __init__(self, name, newcat):
+        self.name = name
+        self.cat = if newcat in [
+                    "Ranged", "Melee", "Magic"
+                    ]: #or other damage categories
+                        return newcat
+                    else:
+                        return "FalseItem"
+        self.damage = 3 #because it's a lucky number
+        self.durability = random.randint(0,100)
+        
+        
+''''''''''''''''''''''''
 def combat(player, monster):
     turn = 0
     turn += 1
