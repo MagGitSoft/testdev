@@ -22,7 +22,7 @@ def prnt_prettylst(lst): #prints list entries separated by newline, not comma
 
 ''''''''''''''''''''''''
 def dice(sides, throws):
-    rolls = [0] * 21 #rolls = list with the value 0 in 7 additions
+    rolls = [0] * 21 #rolls = list with the value 0 in 21 additions (index 0-20)
     for i in range(throws):
         
         #4-sided die
@@ -118,14 +118,16 @@ class Player:
 ''''''''''''''''''''''''
 class Item:
     def __init__(self, name, newcat):
+        
         self.name = name
-        self.cat = if newcat in [
-                    "Ranged", "Melee", "Magic"
-                    ]: #or other damage categories
-                        return newcat
-                    else:
-                        return "FalseItem"
-        self.damage = 3 #because it's a lucky number
+        for x in ["Ranged", "Melee", "Magic"]:
+            if newcat.capitalize() == x:
+                self.cat = x
+                break
+            else:
+                self.cat = "NoCombatCategory"
+
+        self.damage = 7 #because it's a lucky number
         self.durability = random.randint(0,100)
         
         
@@ -162,9 +164,7 @@ def combat(player, monster):
     print
     print ("Monster initiative roll:", str(monsterini), \
            ("(%s+%s)" %((monsterini - mon_ini), mon_ini)))
-           #"(", (monsterini - mon_ini), "+" \
-           #, mon_ini_str, ")")
-    print ("Player initiative roll: " + str(playerini) + \
+    print ("Player initiative roll: " + str(playerini), \
            ("(%s+%s)" %((playerini - plr_ini), plr_ini)))
     
     while monster.undefeated() and player.alive():
@@ -172,8 +172,8 @@ def combat(player, monster):
         print ("Monster health:", monster.hp)
         print ("Player health: ", player.hp)
         
-        fightchoice = input("Attack, heal or run?\n") + "\n"
-        if fightchoice == ("attack" or "a"):
+        fightchoice = input(("Attack, heal or run?\n") + "\n")
+        if fightchoice == ("attack"):
             dmgDealt = player.attackDmg()
             monster.hp -= dmgDealt
             print ("You dealt", dmgDealt, "damage!")
@@ -187,7 +187,6 @@ def combat(player, monster):
                 break
             elif player.alive != True:
                 print ("You've been defeated!")
-                break
             else:
                 print ("%s is defeated!" % monster.species)
                 break
@@ -233,6 +232,8 @@ def is_int(intcheck): #int checking function
     try:
         return int(intcheck)
     except ValueError:
+        return False
+    except TypeError:
         return False
 ''''''''''''''''''''''''
 #
@@ -330,52 +331,53 @@ rabbitcaveopt = int_choice("What do you do? ",
 ''''''''''''''''''''''''''''''''''''''''''''''''
 
 
-rabbitcaveend = ["\n Aww, you lost. There's a very simple reason for that."
-                 + " You have to actually choose to do something,"
-                 + " otherwise you will starve or thirst to death!"
-                 + " ...unless, of course, some other cause of death"
-                 + " reaches you first... which is what actually happened."
-                 + " Please, please, applaud not, for I am without both"
-                 + " pen and paper, and I may therefore not scribble my name."
-                 + "\n So there, you may go now. This game is over. Shoo, shoo!",
-                 #Option 1
-                 "\n You jump out of your sheets, and quickly take a step towards"
-                 + " the rabbit. Your arm, from its pulled-back position, fires"
-                 + " towards the rabbit at speeds you didn't think your arms could."
-                 + " The fire next to you started to crackle violently from the"
-                 + " vibrations now emanating from your stomping feet, nearly like"
-                 + " a cheering crowd. You notice time seemingly slow down from the"
-                 + " abrupt wake-up, and only inches from the rabbits face, when"
-                 + " Benny the bouncy bunny springs from his throne, stabs you with"
-                 + " its fluffy behind. You barely catch a glimpse of a red barb"
-                 + " and a few trailing drops as it leaves your forearm, before"
-                 + " you realize that the rabbit is behind you.",
-                 #Option 2
-                 "\n You take a look around you as you cautiously rise from your"
-                 + " sleeping gear. The entrance of the cave seems to be small"
-                 + " enough that you'd have to be on all fours to get through."
-                 + " The ceiling is only about two feet taller than you. The"
-                 + " table has a knife on it and some chopped up herbs. The"
-                 + " backpack has some herbs that you recognize, and some you"
-                 + " don't, but from what you gather, it looks like dinner."
-                 + " The rabbit, now poking the seemingly newly lit fire with"
-                 + " a stick, takes quick glances at you.",
-                 #Option 3
-                 "\n Wooow, last night must have been the wildest party! The drinks"
-                 + " are still lingering! That must have been some potent stuff"
-                 + ", never thought I'd see a talking rabbit. So what part of"
-                 + " my subconscious are you? Angela the angel or Dean the devil?",
-                 #Option 4
-                 "\n You make a split-second decision to run at the sight of"
-                 + " mr. furryneck. You reach for your backpack, but you"
-                 + " only grab at the air a few times. You jump up and sprint"
-                 + " for the only exit, but you realize just a moment too late"
-                 + " that it's far too tight to get out upright, so in a heroic"
-                 + " attempt to dodge a headbang, you dive. You get down on"
-                 + " all fours and tumble into the upper edge. Your head hurts"
-                 + " for just a blink, before you black out.",
-                 #Option 5
-                 "You go outside."]
+rabbitcaveend = [
+        "\n Aww, you lost. There's a very simple reason for that."
+         + " You have to actually choose to do something,"
+         + " otherwise you will starve or thirst to death!"
+         + " ...unless, of course, some other cause of death"
+         + " reaches you first... which is what actually happened."
+         + " Please, please, applaud not, for I am without both"
+         + " pen and paper, and I may therefore not scribble my name."
+         + "\n So there, you may go now. This game is over. Shoo, shoo!",
+         #Option 1
+         "\n You jump out of your sheets, and quickly take a step towards"
+         + " the rabbit. Your arm, from its pulled-back position, fires"
+         + " towards the rabbit at speeds you didn't think your arms could."
+         + " The fire next to you started to crackle violently from the"
+         + " vibrations now emanating from your stomping feet, nearly like"
+         + " a cheering crowd. You notice time seemingly slow down from the"
+         + " abrupt wake-up, and only inches from the rabbits face, when"
+         + " Benny the bouncy bunny springs from his throne, stabs you with"
+         + " its fluffy behind. You barely catch a glimpse of a red barb"
+         + " and a few trailing drops as it leaves your forearm, before"
+         + " you realize that the rabbit is behind you.",
+         #Option 2
+         "\n You take a look around you as you cautiously rise from your"
+         + " sleeping gear. The entrance of the cave seems to be small"
+         + " enough that you'd have to be on all fours to get through."
+         + " The ceiling is only about two feet taller than you. The"
+         + " table has a knife on it and some chopped up herbs. The"
+         + " backpack has some herbs that you recognize, and some you"
+         + " don't, but from what you gather, it looks like dinner."
+         + " The rabbit, now poking the seemingly newly lit fire with"
+         + " a stick, takes quick glances at you.",
+         #Option 3
+         "\n Wooow, last night must have been the wildest party! The drinks"
+         + " are still lingering! That must have been some potent stuff"
+         + ", never thought I'd see a talking rabbit. So what part of"
+         + " my subconscious are you? Angela the angel or Dean the devil?",
+         #Option 4
+         "\n You make a split-second decision to run at the sight of"
+         + " mr. furryneck. You reach for your backpack, but you"
+         + " only grab at the air a few times. You jump up and sprint"
+         + " for the only exit, but you realize just a moment too late"
+         + " that it's far too tight to get out upright, so in a heroic"
+         + " attempt to dodge a headbang, you dive. You get down on"
+         + " all fours and tumble into the upper edge. Your head hurts"
+         + " for just a blink, before you black out.",
+         #Option 5
+         "You go outside."]
 
 print (rabbitcaveend[rabbitcaveopt])
 
@@ -404,22 +406,45 @@ BLUE = (0, 0, 255)
 SANDYELLOW = (255, 255, 153)
 GRAY = (192, 192, 192)
 
+def curRsrc():
+    return resrcmap[playerPos[0]][playerPos[1]]
+
+def curTile():
+    return tilemap[playerPos[0]][playerPos[1]]
 
 def search():
     
-    if resrcmap[playerPos[0]][playerPos[1]] != 0:
-        inventory.key(curRsrc)
-        resrcmap[playerPos[0]][playerPos[1]] = 0
+    if curRsrc() != 0:
+        if is_int(resrcmap[playerPos[0]][playerPos[1]]) and curRsrc() >= 1:
+            print ("You found %s gold coins!" % (curRsrc()))
+            inventory["Gold"] += resrcmap[playerPos[0]][playerPos[1]]
+
+        else:
+            print ("You found a %s" % (curRsrc().name))
+            inventory["%s" % (curRsrc().name)] = curRsrc()
+            resrcmap[playerPos[0]][playerPos[1]] = 0
+    else:
+        print("There doesn't seem to be anything here")
+
+def goldCheck(test):
+    try:
+        for i in range(0, 50):
+            if ["gold", i] in test:
+                return True
+    except TypeError:
+        return False
+
 
 items = {
-        "wand" : "wand",
-        "sword" : "sword",
-        "bow" : "bow",
-        "dagger" : "dagger",
-        "gold" : ["gold", random.randint(1,20)]
+        "wand" : Item("wand", "Ranged"),
+        "sword" : Item("sword", "Melee"),
+        "bow" : Item("Training Bow", "Ranged"),
+        "dagger" : Item("dagger", "Melee"),
+        "gold" : random.randint(1,20)
         }
 
 inventory = {
+            "Gold" : 0
             
             }
 
@@ -469,8 +494,6 @@ tilemap = [
            for h in range(MAPHEIGHT)
           ]
 
-curTile = tilemap[playerPos[0]][playerPos[1]]
-curRsrc = resrcmap[playerPos[0]][playerPos[1]]
 
 '''
 for rw in range(rows):
@@ -547,7 +570,7 @@ while True:
                 pygame.quit()
                 sys.exit()
             if (event.key == K_e):
-                print("hi")
+                search()
                 
     #loop through each row
     for row in range(MAPHEIGHT):
