@@ -16,9 +16,14 @@ from pygame.locals import * #import some useful constants
     
 
 ''''''''''''''''''''''''
-def prnt_prettylst(lst): #prints list entries separated by newline, not comma
+def prnt_map(lst): #prints list entries separated by newline, not comma
     for i in lst:
         print (i)
+
+''''''''''''''''''''''''
+def prnt_dct(dct):
+    for i in dct:
+        print(str(i) + " : " + dct[str(i)]) #line broken, TypeError raised, fix whenever
 
 ''''''''''''''''''''''''
 def dice(sides, throws):
@@ -116,9 +121,14 @@ class Player:
             sys.exit("Virkelig, skikkelig dævv...")
 
 ''''''''''''''''''''''''
+existingItems = {
+    
+    }
+
+''''''''''''''''''''''''
 class Item:
-    def __init__(self, name, newcat):
-        
+    def __init__(self, name, newcat, newID):
+        self.ID = newID
         self.name = name
         for x in ["Ranged", "Melee", "Magic"]:
             if newcat.capitalize() == x:
@@ -127,11 +137,24 @@ class Item:
             else:
                 self.cat = "NoCombatCategory"
 
-        self.damage = 7 #because it's a lucky number
+        if self.cat != "NoCombatCategory":
+            self.damage = 7 #because it's a lucky number
         self.durability = random.randint(0,100)
         
         
 ''''''''''''''''''''''''
+def newItem(name, cat):
+    n = 0
+    for n in existingItems:
+        if n in existingItems:
+            pass
+        else:
+            n += 1
+            
+    existingItems[(n, name)] = Item(name, cat, n)
+
+''''''''''''''''''''''''
+
 def combat(player, monster):
     turn = 0
     turn += 1
@@ -223,6 +246,52 @@ def str_choice(text, options, complaint): #choice function with three arguments:
         return choicein
     else:
         return options[0]
+
+''''''''''''''''''''''''
+#
+#
+#
+''''''''''''''''''''''''
+def curRsrc():
+    return resrcmap[playerPos[0]][playerPos[1]]
+''''''''''''''''''''''''
+def curTile():
+    return tilemap[playerPos[0]][playerPos[1]]
+
+''''''''''''''''''''''''
+#
+''''''''''''''''''''''''
+def search():
+    
+    if curRsrc() != 0:
+        if is_int(resrcmap[playerPos[0]][playerPos[1]]) and curRsrc() >= 1:
+            print ("You found %s gold coins!" % (curRsrc()))
+            inventory["Gold"] += resrcmap[playerPos[0]][playerPos[1]]
+
+        else:
+            print ("You found a %s" % (curRsrc().name))
+            inventory["%s" % (curRsrc().name)] = curRsrc()
+            resrcmap[playerPos[0]][playerPos[1]] = 0
+    else:
+        print("There doesn't seem to be anything here")
+
+''''''''''''''''''''''''
+#
+''''''''''''''''''''''''
+def goldCheck(test):
+    try:
+        for i in range(0, 50):
+            if ["gold", i] in test:
+                return True
+    except TypeError:
+        return False
+''''''''''''''''''''''''
+#
+#
+#
+''''''''''''''''''''''''
+def if_int_in():
+    pass
 ''''''''''''''''''''''''
 #
 #
@@ -406,40 +475,14 @@ BLUE = (0, 0, 255)
 SANDYELLOW = (255, 255, 153)
 GRAY = (192, 192, 192)
 
-def curRsrc():
-    return resrcmap[playerPos[0]][playerPos[1]]
 
-def curTile():
-    return tilemap[playerPos[0]][playerPos[1]]
-
-def search():
-    
-    if curRsrc() != 0:
-        if is_int(resrcmap[playerPos[0]][playerPos[1]]) and curRsrc() >= 1:
-            print ("You found %s gold coins!" % (curRsrc()))
-            inventory["Gold"] += resrcmap[playerPos[0]][playerPos[1]]
-
-        else:
-            print ("You found a %s" % (curRsrc().name))
-            inventory["%s" % (curRsrc().name)] = curRsrc()
-            resrcmap[playerPos[0]][playerPos[1]] = 0
-    else:
-        print("There doesn't seem to be anything here")
-
-def goldCheck(test):
-    try:
-        for i in range(0, 50):
-            if ["gold", i] in test:
-                return True
-    except TypeError:
-        return False
 
 
 items = {
-        "wand" : Item("wand", "Ranged"),
-        "sword" : Item("sword", "Melee"),
-        "bow" : Item("Training Bow", "Ranged"),
-        "dagger" : Item("dagger", "Melee"),
+        "wand" : newItem("wand", "Ranged"),
+        "sword" : newItem("sword", "Melee"),
+        "bow" : newItem("Training Bow", "Ranged"),
+        "dagger" : newItem("dagger", "Melee"),
         "gold" : random.randint(1,20)
         }
 
