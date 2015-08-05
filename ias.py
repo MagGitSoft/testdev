@@ -5,7 +5,7 @@ from pandas import DataFrame, read_csv
 from pygame.locals import * #import some useful constants
 
 
-
+ID_COUNTER = 0
 
 
 ###''''''''''''''''''''''''''''''''''''''''''###
@@ -125,6 +125,9 @@ existingItems = {
     
     }
 
+usedItems = { #as in placed on/in; map, inventory
+
+    }
 ''''''''''''''''''''''''
 class Item:
     def __init__(self, name, newcat, newID):
@@ -141,20 +144,61 @@ class Item:
             self.damage = 7 #because it's a lucky number
         self.durability = random.randint(0,100)
         
-        
+
 ''''''''''''''''''''''''
 def newItem(name, cat):
-    n = 0
-    for n in existingItems:
-        if n in existingItems:
-            pass
-        else:
-            n += 1
-            
-    existingItems[(n, name)] = Item(name, cat, n)
+    global ID_COUNTER
+#    try:
+#        n = 0
+#        for i in range(0, len(existingItems + 1)):
+#            if n in existingItems[n]:
+#                n += 1
+#            elif curRsrc() != 0:
+#                pass
+#            else:
+#                pass
+#    except:
+#        pass # is this correct?
+        
+    existingItems[ID_COUNTER] = Item(name, cat, wpn, ID_COUNTER)
+    ID_COUNTER += 1
 
 ''''''''''''''''''''''''
-
+def randItem(): #the job: picking random attributes for a new item object
+    #attributes needing picking: category, name, base damage
+    global ID_COUNTER
+    x = random.randint(1,3)
+    categories = ["NoCombatCategory", "Ranged", "Melee", "Magic"]
+    cat = categories[x]
+    if cat == categories[1]:
+        #then this
+        pass
+    elif cat == categories[2]:
+        #then this
+        pass
+    elif cat == categories[3]:
+        #then this
+        pass
+    else:
+        cat = categories[0]
+    #name = randName()
+    newItem("name", cat)
+''''''''''''''''''''''''
+#def newtItem(name, cat):
+#    
+#    try:
+#        n = 1
+#        for k, v in range(0, len(existingItems) + 1):
+#            if str(n) == k:
+#                pass
+#            else:
+#                n += 1
+#        existingItems["%s" % (n)] = Item(name, cat, n)
+#    except:
+#        pass # is this correct?
+        
+''''''''''''''''''''''''
+        
 def combat(player, monster):
     turn = 0
     turn += 1
@@ -267,11 +311,15 @@ def search():
         if is_int(resrcmap[playerPos[0]][playerPos[1]]) and curRsrc() >= 1:
             print ("You found %s gold coins!" % (curRsrc()))
             inventory["Gold"] += resrcmap[playerPos[0]][playerPos[1]]
+            resrcmap[playerPos[0]][playerPos[1]] = 0
 
         else:
-            print ("You found a %s" % (curRsrc().name))
-            inventory["%s" % (curRsrc().name)] = curRsrc()
-            resrcmap[playerPos[0]][playerPos[1]] = 0
+            try:
+                print ("You found a %s" % (curRsrc().name))
+                inventory["%s" % (curRsrc().name)] = curRsrc()
+                resrcmap[playerPos[0]][playerPos[1]] = 0
+            except AttributeError:
+                pass
     else:
         print("There doesn't seem to be anything here")
 
@@ -479,10 +527,10 @@ GRAY = (192, 192, 192)
 
 
 items = {
-        "wand" : newItem("wand", "Ranged"),
-        "sword" : newItem("sword", "Melee"),
-        "bow" : newItem("Training Bow", "Ranged"),
-        "dagger" : newItem("dagger", "Melee"),
+        "wand" : 0,
+        "sword" : 0,
+        "bow" : 0,
+        "dagger" : 0,
         "gold" : random.randint(1,20)
         }
 
