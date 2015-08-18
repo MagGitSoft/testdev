@@ -125,12 +125,22 @@ existingItems = {
     
     }
 
-usedItems = { #as in placed on/in; map, inventory
+usedItems = [ #as in placed on/in; map, inventory or exhausted.
+    # USE ID's as list entries, easier to work with than a dict.
+    ]
+    
+''''''''''''''''''''''''
+def itemTest():
+    print("\n")
+    print("name, category, weapon\n")
+    for k in existingItems:
+        seq = [existingItems[k].name, existingItems[k].cat,
+               existingItems[k].wpn]
+        print(", ".join(seq))
 
-    }
 ''''''''''''''''''''''''
 class Item:
-    def __init__(self, name, newcat, newID):
+    def __init__(self, newID, name, newcat, wpn): #look up **kwargs
         self.ID = newID
         self.name = name
         for x in ["Ranged", "Melee", "Magic"]:
@@ -139,66 +149,63 @@ class Item:
                 break
             else:
                 self.cat = "NoCombatCategory"
-
+        self.wpn = wpn
         if self.cat != "NoCombatCategory":
             self.damage = 7 #because it's a lucky number
         self.durability = random.randint(0,100)
         
 
 ''''''''''''''''''''''''
-def newItem(name, cat):
-    global ID_COUNTER
-#    try:
-#        n = 0
-#        for i in range(0, len(existingItems + 1)):
-#            if n in existingItems[n]:
-#                n += 1
-#            elif curRsrc() != 0:
-#                pass
-#            else:
-#                pass
-#    except:
-#        pass # is this correct?
-        
-    existingItems[ID_COUNTER] = Item(name, cat, wpn, ID_COUNTER)
+def newItem(name, cat, wpn):
+    global ID_COUNTER #Makes sure this variable isn't renewed each time
+    
+    
+    existingItems[ID_COUNTER] = Item(ID_COUNTER, name, cat, wpn)
     ID_COUNTER += 1
 
 ''''''''''''''''''''''''
 def randItem(): #the job: picking random attributes for a new item object
     #attributes needing picking: category, name, base damage
-    global ID_COUNTER
+
     x = random.randint(1,3)
     categories = ["NoCombatCategory", "Ranged", "Melee", "Magic"]
     cat = categories[x]
     if cat == categories[1]:
-        #then this
+        wpns = ["Bow", "Gun", "Thrown"]
+        x = random.randint(0,len(wpns)-1)
+        wpn = wpns[x]
+#        names = ["%s of Beginnings"%(wpn)]
+        names = ["%s of Beginnings"%(wpn), "%s of Fire"%(wpn), "%s of Ice"%(wpn),
+                 "Rangers %s"%(wpn), "Training %s"%(wpn)]
         pass
+    
     elif cat == categories[2]:
-        #then this
+        wpns = ["Axe", "Dagger", "Sword"]
+        x = random.randint(0,len(wpns)-1)
+        wpn = wpns[x]
+#        names = ["%s of Beginnings"%(wpn)]
+        names = ["Sharp %s"%(wpn), "Blunt %s"%(wpn), "%s of Truestrike"%(wpn),
+                 "%s of Doom"%(wpn), "Tripping %s"%(wpn), "%s of Justice"%(wpn)]
         pass
     elif cat == categories[3]:
-        #then this
+        wpns = ["Wand", "Staff", "Orb"]
+        x = random.randint(0,len(wpns)-1)
+        wpn = wpns[x]
+#        names = ["%s of Beginnings"%(wpn)]
+        names = ["%s of Avarice"%(wpn), "Bloodfire %s"%(wpn), "%s of Cantrips"%(wpn),
+                 "Dung Defender %s"%(wpn), "%s of Everice"%(wpn)]
         pass
     else:
-        cat = categories[0]
-    #name = randName()
-    newItem("name", cat)
-''''''''''''''''''''''''
-#def newtItem(name, cat):
-#    
-#    try:
-#        n = 1
-#        for k, v in range(0, len(existingItems) + 1):
-#            if str(n) == k:
-#                pass
-#            else:
-#                n += 1
-#        existingItems["%s" % (n)] = Item(name, cat, n)
-#    except:
-#        pass # is this correct?
         
+        pass
+    name = names[random.randint(0, len(names)-1)]
+    newItem(name, cat, wpn)
+''''''''''''''''''''''''       
 ''''''''''''''''''''''''
-        
+def randMonster():
+    pass
+
+''''''''''''''''''''''''
 def combat(player, monster):
     turn = 0
     turn += 1
